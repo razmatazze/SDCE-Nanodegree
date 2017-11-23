@@ -8,11 +8,11 @@
 
 <div class="text_cell_render border-box-sizing rendered_html">
 
-# Traffic Sign Recognition[¶](#Traffic-Sign-Recognition)
+# Traffic Sign Recognition
 
-## Udacity Self-Driving-Car-Engineer Nanodegree 2017, April[¶](#Udacity-Self-Driving-Car-Engineer-Nanodegree-2017,-April)
+## Udacity Self-Driving-Car-Engineer Nanodegree 2017, April
 
-### by Christoph Reiners[¶](#by-Christoph-Reiners)
+### by Christoph Reiners
 
 Build a Traffic Sign Recognition Project
 
@@ -27,11 +27,11 @@ The goals / steps of this project are the following:
 
 * * *
 
-## Introduction[¶](#Introduction)
+## Introduction
 
 The goal is to design a neural network that can recognize traffic signs. Therefore the input of the network are images and the output is a classification of the input based on characteristics. Neural networks learn these characteristics on their own in the training. The training will feed known and classified data to the inputs and evaluate the classification made by the network based on the known classification. The evaluation is used by the network to adapt its' recognition of the characteristics to match the desired classification.
 
-### Data Set Summary & Exploration[¶](#Data-Set-Summary-&-Exploration)
+### Data Set Summary & Exploration
 
 The data set used is based on the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset) that holds around 50000 unique images of german traffic signs with a varying resolution between 15x15 to 250x250 pixels. The [actually data set](https://d17h27t6h515a5.cloudfront.net/topher/2017/February/5898cd6f_traffic-signs-data/traffic-signs-data.zip) that is used was provided by Udacity and is already splitted into a large set for training and smaller sets for testing and validation as seen in fig[1].![](./images/01.png "fig1: image-classes distribution ") The data set has:
 
@@ -44,9 +44,9 @@ Furthermore the images are rescaled to 32x32 pixels in 3-channel RGB and are ann
 
 * * *
 
-## Design and Test a Model Architecture[¶](#Design-and-Test-a-Model-Architecture)
+## Design and Test a Model Architecture
 
-### Augmentation to obtain more data[¶](#Augmentation-to-obtain-more-data)
+### Augmentation to obtain more data
 
 After the first training attempts of my network granted unsatisfying accuracies I found out, that a more even distributed training set may be better, as a development of a bias towards overrepresented classes will be more unlikely. Yet it did not improved the accuracy right away.
 
@@ -108,17 +108,17 @@ To obtain more data without using another data set, the existing images can be a
 
 Each class will be filled up to a number of around 1000 by transforming the image to a right and left perspective of random intensity and result (fig3). The newly gained images are also signed with a label that defines their class as trafficsign. Fig4 shows an original image and its' corresponding augmented copy. ![](./images/03.png "fig3: filled up image-classes") ![](./images/04.png "fig4: original and augmented examples")
 
-### Grayscale[¶](#Grayscale)
+### Grayscale
 
 As traffic signs are designed to be recognizeable also for colourblind people, only the visualized symbols and the geometric form of the sign matter. Therefore the colour is not a necessary property to classify a traffic sign and the grayscale of the image can be used. This will reduce the complexity of imagefeatures the network will try to classify and may be more accurate in a shorter time/with less training data. According to my mentor a conversion to the YUV colourspace was done and then to grayscale the images only the Y-channel was used (fig5). Compared to the cv2.BGR2GRAYSCALE function there was no change in accuracy observeable.![](./images/05.png "fig5: YUV-space grayscale")
 
-### Normalization[¶](#Normalization)
+### Normalization
 
 As most of the outputs and values within a neural network are around +/- 1, the inputs shall be in this range too. Therefore the image-data needed to be normalized. As a pixel can have a intensity of 0 to 255 per colourchannel, a normalization can be done via [ (pixel/122,5)-1 ]. This is also good, as the resulting datatype is float as the datatypes within te neural network are.
 
 * * *
 
-### Final Neural Network Architecture[¶](#Final-Neural-Network-Architecture)
+### Final Neural Network Architecture
 
 The final architecture is a slightly changed LeNet as presented in the Udacity lab leading up to this project. All initializers feature the xavier_intializer according to [Convolutional Networks for Traffic Sign Classification (Master’s thesis in Communication Engineering, by FEDERICO ZANETTI, 2016)](http://publications.lib.chalmers.se/records/fulltext/245747/245747.pdf)
 
@@ -145,7 +145,7 @@ The final architecture is a slightly changed LeNet as presented in the Udacity l
 |7  Fully Connected Layer|   84    |   43    |                                            |
 </pre>
 
-### Training and optimizing the Network[¶](#Training-and-optimizing-the-Network)
+### Training and optimizing the Network
 
 I have played with the settings to the LeNet architecture provided in the Udacity Lab. Also I have changed the initilializer because of the above linked master thesis. But the initializer had no real impact on the accuracy, maybe it is only significant trying to stretch out within a 99% accuracy, but I didn't manage to get there, not even close. So the settings below were done either with truncated_normal or xavier intitializier. The last few settings featured always xavier, though. As stated before, I also started with the normal dataset, but filled it up with augmented images. This step didn't showed any improvements. But maybe that helped later as I further tuned the network.
 
@@ -167,7 +167,7 @@ Approach:
      A10)LeNet2 [100,1000,0.00055 // 0.99,0.99,0.950,0.950,0.70,0.60] Validation Accuracy = 0.88
      A11)LeNet2 [100,1000,0.00055 // 0.99,0.99,0.950,0.950,0.70,0.60] Validation Accuracy = 0.91 (conv00 [1x1x1x4],conv0[2x2x4x5],con1[4x4x5x6])
      A12)LeNet2 [100, 300,0.00055 // 0.99,0.99,0.950,0.950,0.70,0.60] Validation Accuracy = 0.924
-         A13)LeNet2 [100, 300,0.00075 // 0.99,0.99,0.950,0.950,0.70,0.60] Validation Accuracy = 0.935
+     A13)LeNet2 [100, 300,0.00075 // 0.99,0.99,0.950,0.950,0.70,0.60] Validation Accuracy = 0.935
      A14)LeNet2 [100, 300,0.00090 // 0.99,0.99,0.950,0.950,0.70,0.60] Validation Accuracy = 0.945
      A15)LeNet2 [100, 300,0.00100 // 0.99,0.99,0.950,0.950,0.70,0.60] Validation Accuracy = 0.933
      A16)LeNet2 [100,  50,0.00100 // 0.99,0.99,0.950,0.950,0.70,0.60] Validation Accuracy = 0.954
@@ -180,7 +180,7 @@ The final results of around 96.5% Accuracy for the Validationset and 94,6% for t
 
 The approach list shows, that the dropoutlayers helped improving accuracy. The closer the dropouts are located at the input the smaller should be the dropout. Whereas a high dropoutrate helps on the accuracy if it closer to the output. A small batch size helps improving the accuracy, but takes more computing time, so trying other parameters with a greater batchsize helps keeping computing time low but getting some impression of the influence of the other parameters.
 
-### Performance on new Images[¶](#Performance-on-new-Images)
+### Performance on new Images
 
 As a challenge the trained network should take on new images and should classify them. Fig.6 shows the chosen images that were found in the internet. ![](./images/06.png "fig6: new images")
 
