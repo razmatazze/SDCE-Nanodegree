@@ -1,10 +1,3 @@
-# Udacity Nanodegree Self-Driving Car Engineer
-## Cohort 2, started January 2017
-
-This repository contains some of the submitted and passed files of the coding-projects of the Udacity Nanodegree Self-Driving Car Engineer.
-
-The files for each project are minimized here to mostly only the writeup/documentation of the project and the project's code (that was developed within a jupyternotebook, that was provided by Udacity as a To-Do-list with instructions).
-
 # Term 1
 ## Computer Vision and Deep Learning
 
